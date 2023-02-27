@@ -55,25 +55,44 @@ def draw_section_4():
             x = 10 * column + 905
             y = 10 * row - 5
             arcade.draw_rectangle_filled(x,y,5,5, arcade.color.BLACK)
-            if column % 2 and row % 2 == 0:
+            if row % 2 and column % 2 == 0:
                 arcade.draw_rectangle_filled(x,y,5,5, arcade.color.WHITE)
     pass
 
 
 def draw_section_5():
-    # Do NOT use 'if' statements to complete 5-8. Manipulate the loops instead.
+    for row in range(30):
+        for column in range(row, 30):
+            x = 10 * column + 5
+            y = 10 * row + 305
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
     pass
 
 
 def draw_section_6():
+    for row in range(30):
+        for column in range(row, 30):
+            x = -10 * column + 595
+            y = 10 * row + 305
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
     pass
 
 
 def draw_section_7():
+    for row in range(30):
+        for column in range(row, 30):
+            x = 10 * row + 605
+            y = 10 * column + 305
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
     pass
 
 
 def draw_section_8():
+    for row in range(30):
+        for column in range(row, 30):
+            x = 10 * column + 905
+            y = -10 * row + 595
+            arcade.draw_rectangle_filled(x, y, 5, 5, arcade.color.WHITE)
     pass
 
 
