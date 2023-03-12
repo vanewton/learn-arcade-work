@@ -12,7 +12,7 @@ class Room:
 
 
 def main():
-    room = Room ("description",
+    room = Room ("A quaint room lit with a single torch. Tucked in a corner is a small bed adjacent to a wooden bookshelf.",
                     "north",
                     "south",
                     "east",
@@ -23,6 +23,8 @@ def main():
     print(room.east)
     print(room.west)
 
+
+
 main()
-    room_list = []
-    print(room_list)
+room_list = []
+print(room_list)
