@@ -1,4 +1,5 @@
 
+def current_room():
 class Room:
     """The room that we are starting in."""
 
@@ -26,5 +27,7 @@ def main():
 
 
 main()
-room_list = []
+room_list = [1,2,3,4,5]
 print(room_list)
+append = room.description
+room_list(append.description)
