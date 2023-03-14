@@ -1,33 +1,44 @@
-
-def current_room():
 class Room:
-    """The room that we are starting in."""
+    def __init__(self, description, north, east, south, west):
+        self.description = description
+        self.north = north
+        self.east = east
+        self.south = south
+        self.west = west
 
-    def __init__(self, description, north, south, east, west):
-        self.description: str = ""
-        self.north: str = north
-        self.south: str = south
-        self.east: str = east
-        self.west: str = west
-
-
-
+# not in class!
 def main():
-    room = Room ("A quaint room lit with a single torch. Tucked in a corner is a small bed adjacent to a wooden bookshelf.",
-                    "north",
-                    "south",
-                    "east",
-                    "west")
-    print(room.description)
-    print(room.north)
-    print(room.south)
-    print(room.east)
-    print(room.west)
+    room_list = []
+    current_room = 0
+    next_room = 0
+    done = False
 
+    # Bedroom 2 - 0 - (description, north, east, south, west)
+    room = Room("You are in the second bedroom, there is a door to the east.", None, 1, None, None)
+    room_list.append(room)
 
+    # add rest of the rooms
+
+    while not done:
+        print(room_list[current_room].description)
+        direction = input("Which way would you like to go? (n s e w)").lower()
+        if direction[0] == 'n':
+            next_room = room_list[current_room].north
+
+        if direction[0] == 's':
+            next_room = room_list[current_room].south
+        # add other directions
+
+        else:
+            print("Please pick a valid direction.")
+            continue
+
+        # check for valid choice
+        if next_room == None:
+            print("You can't go that way!")
+            continue
+
+        # if all is well, set new room
+        current_room = next_room
 
 main()
-room_list = [1,2,3,4,5]
-print(room_list)
-append = room.description
-room_list(append.description)
