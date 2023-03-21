@@ -1,9 +1,9 @@
 class Room:
-    def __init__(self, description, north, east, south, west):
+    def __init__(self, description, north, south, east, west):
         self.description = description
         self.north = north
-        self.east = east
         self.south = south
+        self.east = east
         self.west = west
 
 # not in class!
@@ -13,18 +13,34 @@ def main():
     next_room = 0
     done = False
 
-    #Bedroom 1
-    room = Room("You are in the first bedroom. There is a small bed in the corner to your right and a door to the west."
-                , None, None, None, 1)
+    # Room 0- King's room
+    room = Room("You are in the king's quarters. There is a door to the south."
+                , None, 2, None, None)
     room_list.append(room)
 
-    # Bedroom 2 - 0 - (description, north, east, south, west)
-    room = Room("You are in the second bedroom, there is a door to the east.", 1, 1, None, None)
+    # Room 1- North hallway
+    room = Room("You are in the north hallway, there are three areas you can access by choosing west, east, or south.",0,
+                4, 3, 1)
     room_list.append(room)
 
-    # add rest of the rooms
-    # Bedroom 3
-    room = Room("You are in the hallway, there is nothing but torches to light the way.", None, None, 1, None)
+    # Room 2- The Commons
+    room = Room("You are in the commons, there is a door to the west.", None, None, None, 2)
+    room_list.append(room)
+
+    # Room 3- Princess's room
+    room = Room("You are in the Princess's room. There is a door to the east.", None, None, 2, None)
+    room_list.append(room)
+
+    # Room 4- South hallway
+    room = Room("You are in the south hallway. There is a door to the west.", 2, 6, 5, None)
+    room_list.append(room)
+
+    # Room 5- Knight's room
+    room = Room("You have entered the knight's room. There is a door to the west and south.", None, None, None, 4)
+    room_list.append(room)
+
+    # Room 6- Throne room
+    room = Room("You have entered the throne room.", 4, None, None, None)
     room_list.append(room)
 
     while not done:
