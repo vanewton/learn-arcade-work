@@ -18,21 +18,22 @@ def main():
                 , None, 2, None, None)
     room_list.append(room)
 
-    # Room 1- North hallway
-    room = Room("You are in the north hallway, there are three areas you can access by choosing west, east, or south.",0,
-                4, 3, 1)
-    room_list.append(room)
-
-    # Room 2- The Commons
-    room = Room("You are in the commons, there is a door to the west.", None, None, None, 2)
-    room_list.append(room)
-
-    # Room 3- Princess's room
+    # Room 1- Princess room
     room = Room("You are in the Princess's room. There is a door to the east.", None, None, 2, None)
     room_list.append(room)
 
+
+    # Room 2- North hallway
+    room = Room("You are in the north hallway, you may go north, south, east, or west.", 0, 4, 1, 3)
+    room_list.append(room)
+
+    # Room 3- The Commons
+    room = Room("You are in the commons, there is a door to the west.", None, None, None, 2)
+    room_list.append(room)
+
+
     # Room 4- South hallway
-    room = Room("You are in the south hallway. There is a door to the west.", 2, 6, 5, None)
+    room = Room("You are in the south hallway. There is a door to the west and south.", 2, 6, None, 5)
     room_list.append(room)
 
     # Room 5- Knight's room
