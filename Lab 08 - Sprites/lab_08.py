@@ -84,14 +84,14 @@ class MyGame(arcade.Window):
 
         # Call update on all sprites (The sprites don't do much in this
         # example though.)
-        self.rings_list.update()
+        self.ring_list.update()
 
         # Generate a list of all sprites that collided with the player.
-        coins_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
+        ring_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
                                                               self.ring_list)
 
         # Loop through each colliding sprite, remove it, and add to the score.
-        for ring in rings_hit_list:
+        for ring in ring_hit_list:
             ring.remove_from_sprite_lists()
             self.score += 1
 
