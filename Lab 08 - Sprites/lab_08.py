@@ -4,10 +4,9 @@ import random
 import arcade
 
 # --- Constants ---
-SPRITE_SCALING_PLAYER = 0.1
+SPRITE_SCALING_PLAYER = 0.07
 SPRITE_SCALING_RING = 0.2
 RING_COUNT = 50
-
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -19,6 +18,9 @@ class MyGame(arcade.Window):
         """ Initializer """
         # Call the parent class initializer
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
+
+        #trying to add a background
+        self.background = None
 
         # Variables that will hold sprite lists
         self.player_list = None
@@ -42,24 +44,19 @@ class MyGame(arcade.Window):
 
         # Score
         self.score = 0
-
-        # Set up the player
+        # Tails sprite
         self.player_sprite = arcade.Sprite("tails_sprite.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
 
-        # Create the coins
+        # How many rings there are
         for i in range(RING_COUNT):
 
-            # Create the coin instance
             ring = arcade.Sprite("ring_sprite.png", SPRITE_SCALING_RING)
 
-            # Position the coin
             ring.center_x = random.randrange(SCREEN_WIDTH)
             ring.center_y = random.randrange(SCREEN_HEIGHT)
-
-            # Add the coin to the lists
             self.ring_list.append(ring)
 
     def on_draw(self):
@@ -68,7 +65,7 @@ class MyGame(arcade.Window):
         self.ring_list.draw()
         self.player_list.draw()
 
-        # Put the text on the screen.
+
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
 
@@ -82,8 +79,7 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         """ Movement and game logic """
 
-        # Call update on all sprites (The sprites don't do much in this
-        # example though.)
+        # Call update on all sprites
         self.ring_list.update()
 
         # Generate a list of all sprites that collided with the player.
