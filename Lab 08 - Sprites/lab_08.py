@@ -55,7 +55,7 @@ class MyGame(arcade.Window):
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
 
-        # How many rings there are
+        # Placing the rings
         for i in range(RING_COUNT):
 
             ring = arcade.Sprite("ring_sprite.png", SPRITE_SCALING_RING)
@@ -64,6 +64,7 @@ class MyGame(arcade.Window):
             ring.center_y = random.randrange(SCREEN_HEIGHT)
             self.ring_list.append(ring)
 
+        # Placing the bombs
         for i in range(BOMB_COUNT):
 
             bomb = arcade.Sprite("bomb_sprite.png", SPRITE_SCALING_BOMB)
