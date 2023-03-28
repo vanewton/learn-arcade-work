@@ -6,7 +6,9 @@ import arcade
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.07
 SPRITE_SCALING_RING = 0.2
-RING_COUNT = 50
+SPRITE_SCALING_BOMB = 0.1
+RING_COUNT = 30
+BOMB_COUNT = 20
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
@@ -25,6 +27,7 @@ class MyGame(arcade.Window):
         # Variables that will hold sprite lists
         self.player_list = None
         self.ring_list = None
+        self.bomb_list = None
 
         # Set up the player info
         self.player_sprite = None
@@ -32,6 +35,7 @@ class MyGame(arcade.Window):
 
         # Don't show the mouse cursor
         self.set_mouse_visible(False)
+
 
         arcade.set_background_color(arcade.color.AMAZON)
 
@@ -41,6 +45,7 @@ class MyGame(arcade.Window):
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.ring_list = arcade.SpriteList()
+        self.bomb_list = arcade.SpriteList()
 
         # Score
         self.score = 0
@@ -59,11 +64,19 @@ class MyGame(arcade.Window):
             ring.center_y = random.randrange(SCREEN_HEIGHT)
             self.ring_list.append(ring)
 
+        for i in range(BOMB_COUNT):
+
+            bomb = arcade.Sprite("bomb_sprite.png", SPRITE_SCALING_BOMB)
+            bomb.center_x = random.randrange(SCREEN_WIDTH)
+            bomb.center_y = random.randrange(SCREEN_HEIGHT)
+            self.bomb_list.append(bomb)
+
     def on_draw(self):
         """ Draw everything """
         arcade.start_render()
         self.ring_list.draw()
         self.player_list.draw()
+        self.bomb_list.draw()
 
 
         output = f"Score: {self.score}"
@@ -91,6 +104,11 @@ class MyGame(arcade.Window):
             ring.remove_from_sprite_lists()
             self.score += 1
 
+        bomb_hit_list = arcade.check_for_collision_with_list(self.player_sprite,self.bomb_list)
+
+        for bomb in bomb_hit_list:
+            bomb.remove_from_sprite_lists()
+            self.score -= 1
 
 def main():
     """ Main method """
