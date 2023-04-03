@@ -3,6 +3,7 @@
 import random
 import arcade
 
+
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.07
 SPRITE_SCALING_RING = 0.2
@@ -11,6 +12,8 @@ RING_COUNT = 30
 BOMB_COUNT = 20
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
+ring_sound = arcade.load_sound("ring_sound.mp3")
+
 
 
 class MyGame(arcade.Window):
@@ -37,10 +40,11 @@ class MyGame(arcade.Window):
         self.set_mouse_visible(False)
 
 
-        arcade.set_background_color(arcade.color.AMAZON)
-
     def setup(self):
         """ Set up the game and initialize the variables. """
+        # setting up the sound?
+
+
 
         # Sprite lists
         self.player_list = arcade.SpriteList()
@@ -104,7 +108,7 @@ class MyGame(arcade.Window):
         for ring in ring_hit_list:
             ring.remove_from_sprite_lists()
             self.score += 1
-
+            arcade.play_sound(ring_sound)
         bomb_hit_list = arcade.check_for_collision_with_list(self.player_sprite,self.bomb_list)
 
         for bomb in bomb_hit_list:
