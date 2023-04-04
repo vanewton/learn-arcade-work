@@ -4,6 +4,7 @@ import random
 import arcade
 
 
+
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 0.07
 SPRITE_SCALING_RING = 0.2
@@ -13,6 +14,7 @@ BOMB_COUNT = 20
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 ring_sound = arcade.load_sound("ring_sound.mp3")
+bomb_sound = arcade.load_sound("bomb_sound.wav")
 
 
 
@@ -24,7 +26,7 @@ class MyGame(arcade.Window):
         # Call the parent class initializer
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
 
-        #trying to add a background
+        # trying to add a background
         self.background = None
 
         # Variables that will hold sprite lists
@@ -42,9 +44,6 @@ class MyGame(arcade.Window):
 
     def setup(self):
         """ Set up the game and initialize the variables. """
-        # setting up the sound?
-
-
 
         # Sprite lists
         self.player_list = arcade.SpriteList()
@@ -114,6 +113,7 @@ class MyGame(arcade.Window):
         for bomb in bomb_hit_list:
             bomb.remove_from_sprite_lists()
             self.score -= 1
+            arcade.play_sound(bomb_sound)
 
 def main():
     """ Main method """
