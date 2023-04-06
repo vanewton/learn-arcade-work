@@ -25,6 +25,13 @@ class Ring(arcade.Sprite):
         if self.center_y < 0:
             self.center_y = SCREEN_HEIGHT
 
+class Bomb(arcade.Sprite):
+
+    def update(self):
+        self.center_x -= 1
+        if self.center_x < 0:
+            self.center_x = SCREEN_WIDTH
+
 class MyGame(arcade.Window):
     """ Our custom Window Class"""
 
@@ -79,7 +86,7 @@ class MyGame(arcade.Window):
         # Placing the bombs
         for i in range(BOMB_COUNT):
 
-            bomb = arcade.Sprite("bomb_sprite.png", SPRITE_SCALING_BOMB)
+            bomb = Bomb("bomb_sprite.png", SPRITE_SCALING_BOMB)
             bomb.center_x = random.randrange(SCREEN_WIDTH)
             bomb.center_y = random.randrange(SCREEN_HEIGHT)
             self.bomb_list.append(bomb)
