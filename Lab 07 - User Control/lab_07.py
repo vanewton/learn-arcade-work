@@ -6,6 +6,19 @@ import arcade
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+class MyGame(arcade.Window):
+    """ Our Custom Window Class"""
+    def __init__(self):
+        """ Initializer """
+
+        # Call the parent class initializer
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
+    arcade.set_background_color(0,255,255)
+
+    #create the pizza
+        self.pizza = Pizza(50,50,15,arcade.color,0,255,255)
+
+
 class Pizza:
     def on_draw(self):
         arcade.start_render()
@@ -25,20 +38,6 @@ class Pizza:
         arcade.draw_circle_filled(x, y - 350, 50, (178, 13, 46))
 
         self.pizza.draw = Pizza(50,51,50)
-class MyGame(arcade.Window):
-    """ Our Custom Window Class"""
-    def __init__(self):
-        """ Initializer """
-
-        # Call the parent class initializer
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
-
-
-    def setup(self):
-        self.player_list = Pizza
-        self.player_center_x = 300
-        self.player_center_y = 300
-        self.player_list.append(self.player_list)
 
 
 
