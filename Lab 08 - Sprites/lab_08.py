@@ -17,6 +17,13 @@ ring_sound = arcade.load_sound("ring_sound.mp3")
 bomb_sound = arcade.load_sound("bomb_sound.wav")
 
 
+class Ring(arcade.Sprite):
+
+    def update(self):
+        self.center_y -= 1
+
+        if self.center_y < 0:
+            self.center_y = SCREEN_HEIGHT
 
 class MyGame(arcade.Window):
     """ Our custom Window Class"""
@@ -40,20 +47,7 @@ class MyGame(arcade.Window):
         self.set_mouse_visible(False)
 
 # idk setting up a class fot the rings?
-    class Ring(arcade.Sprite):
-        def __init__(self, ring_sprite, sprite_scaling):
-            super().__init__(ring_sprite, sprite_scaling)
-        ring_sprite_angle = 0
-        ring_sprite_radius = 0
-        ring_sprite_speed = 0.008
-        ring_sprite_center_x = 0
-        ring_sprite_center_y = 0
 
-        def update(self):
-            self.center_y -= 1
-
-            if self.center_y < 0:
-                self.center_y = SCREEN_HEIGHT
 
 
 
@@ -76,7 +70,7 @@ class MyGame(arcade.Window):
         # Placing the rings
         for i in range(RING_COUNT):
 
-            ring = arcade.Sprite("ring_sprite.png", SPRITE_SCALING_RING)
+            ring = Ring("ring_sprite.png", SPRITE_SCALING_RING)
 
             ring.center_x = random.randrange(SCREEN_WIDTH)
             ring.center_y = random.randrange(SCREEN_HEIGHT)
@@ -113,6 +107,7 @@ class MyGame(arcade.Window):
 
         # Call update on all sprites
         self.ring_list.update()
+        self.bomb_list.update()
 
         # Generate a list of all sprites that collided with the player.
         ring_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
@@ -123,6 +118,7 @@ class MyGame(arcade.Window):
             ring.remove_from_sprite_lists()
             self.score += 1
             arcade.play_sound(ring_sound)
+
         bomb_hit_list = arcade.check_for_collision_with_list(self.player_sprite,self.bomb_list)
 
         for bomb in bomb_hit_list:
