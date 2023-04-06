@@ -65,7 +65,7 @@ class MyGame(arcade.Window):
 
         # Set up the player
         self.player_sprite = arcade.Sprite("sonic_sprite.png",
-                                           scale=0.09)
+                                           scale=0.08)
         self.player_sprite.center_x = 256
         self.player_sprite.center_y = 512
         self.player_list.append(self.player_sprite)
