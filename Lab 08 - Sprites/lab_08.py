@@ -26,8 +26,6 @@ class MyGame(arcade.Window):
         # Call the parent class initializer
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
 
-        # trying to add a background
-        self.background = None
 
         # Variables that will hold sprite lists
         self.player_list = None
@@ -45,29 +43,20 @@ class MyGame(arcade.Window):
     class Ring(arcade.Sprite):
         def __init__(self, ring_sprite, sprite_scaling):
             super().__init__(ring_sprite, sprite_scaling)
-        circle_angle = 0
-        circle_radius = 0
-        circle_speed = 0.008
-        circle_center_x = 0
-        circle_center_y = 0
+        ring_sprite_angle = 0
+        ring_sprite_radius = 0
+        ring_sprite_speed = 0.008
+        ring_sprite_center_x = 0
+        ring_sprite_center_y = 0
 
         def update(self):
-            self.center_x = self.circle_radius * math.sin(self.circle_angle) / + self.circle_center_x
-            self.center_y = self.circle_radius * math.cos(self.circle_angle) / + self.circle_center_y
+            self.center_y -= 1
 
-            self.circle_angle += self.circle_speed
+            if self.center_y < 0:
+                self.center_y = SCREEN_HEIGHT
 
-    def update(self):
 
-        """ Update the ball's position. """
-        # Calculate a new x, y
-        self.center_x = self.circle_radius * math.sin(self.circle_angle) \
-                        + self.circle_center_x
-        self.center_y = self.circle_radius * math.cos(self.circle_angle) \
-                        + self.circle_center_y
 
-        # Increase the angle in prep for the next round.
-        self.circle_angle += self.circle_speed
     def setup(self):
         """ Set up the game and initialize the variables. """
 
