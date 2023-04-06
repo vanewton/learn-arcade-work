@@ -9,6 +9,7 @@ SCREEN_HEIGHT = 600
 class Pizza:
     def on_draw(self):
         arcade.start_render()
+        self.draw_pizza(300,300)
         self.on_draw()
 
 
@@ -33,12 +34,20 @@ class MyGame(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
 
 
+    def setup(self):
+        self.player_list = Pizza
+        self.player_center_x = 300
+        self.player_center_y = 300
+        self.player_list.append(self.player_list)
+
+
 
 
 def main():
     window = MyGame()
+    window.setup()
     arcade.run()
 
 
-
-main()
+if __name__ == "__main__":
+    main()
