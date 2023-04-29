@@ -11,7 +11,7 @@ SPRITE_SCALING_ASTEROID = 0.1
 ASTEROID_COUNT = 10
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
-asteroid_sound = arcade.load_sound("bomb_sound.wav")
+
 
 
 
@@ -56,17 +56,17 @@ class MyGame(arcade.Window):
 
         # Score
         self.score = 0
-        # Tails sprite
-        self.player_sprite = arcade.Sprite("tails_sprite.png", SPRITE_SCALING_PLAYER)
+        # Chao sprite
+        self.player_sprite = arcade.Sprite("chao_sprite.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
 
 
         # Placing the asteroids
-        for i in range(ASTEROID_COUNT_COUNT):
+        for i in range(ASTEROID_COUNT):
 
-            asteroid = Asteroid("bomb_sprite.png", SPRITE_SCALING_ASTEROID)
+            asteroid = Asteroid("asteroid_sprite.png", SPRITE_SCALING_ASTEROID)
             asteroid.center_x = random.randrange(SCREEN_WIDTH)
             asteroid.center_y = random.randrange(SCREEN_HEIGHT)
             self.asteroid_list.append(asteroid)
@@ -98,12 +98,12 @@ class MyGame(arcade.Window):
 
         # Loop through each colliding sprite, remove it, and add to the score.
 
-        asteroid_hit_list = arcade.check_for_collision_with_list(self.player_sprite,self.asteroid_list)
+        asteroid_hit_list = arcade.check_for_collision_with_list(self.player_sprite, self.asteroid_list)
 
         for asteroid in asteroid_hit_list:
             asteroid.remove_from_sprite_lists()
             self.score -= 1
-            arcade.play_sound(asteroid_sound)
+
 
 def main():
     """ Main method """
