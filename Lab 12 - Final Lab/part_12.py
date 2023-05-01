@@ -7,8 +7,8 @@ import arcade
 
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 1
-SPRITE_SCALING_ASTEROID = 0.1
-SPRITE_SCALING_BULLET = 0.03
+SPRITE_SCALING_ASTEROID = 0.3
+SPRITE_SCALING_BULLET = 0.02
 ASTEROID_COUNT = 10
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -118,6 +118,7 @@ class MyGame(arcade.Window):
         # Position the bullet
         bullet.center_x = self.player_sprite.center_x
         bullet.bottom = self.player_sprite.top
+        bullet.center_y = self.player_sprite.center_y
 
         # Add the bullet to the appropriate lists
         self.bullet_list.append(bullet)
