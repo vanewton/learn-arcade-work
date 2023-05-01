@@ -6,9 +6,9 @@ import arcade
 
 
 # --- Constants ---
-SPRITE_SCALING_PLAYER = 0.07
+SPRITE_SCALING_PLAYER = 1
 SPRITE_SCALING_ASTEROID = 0.1
-SPRITE_SCALING_BULLET = 0.05
+SPRITE_SCALING_BULLET = 0.03
 ASTEROID_COUNT = 10
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -33,27 +33,6 @@ class Bullet(arcade.Sprite):
 
 
 
-    def on_update(self, delta_time):
-        self.bullet_list.update()
-
-    # Loop through each bullet
-    for bullet in self.bullet_list:
-
-        # Check this bullet to see if it hit a coin
-        hit_list = arcade.check_for_collision_with_list(bullet, self.coin_list)
-
-        # If it did, get rid of the bullet
-        if len(hit_list) > 0:
-            bullet.remove_from_sprite_lists()
-
-        # For every coin we hit, add to the score and remove the coin
-        for coin in hit_list:
-            coin.remove_from_sprite_lists()
-            self.score += 1
-
-        # If the bullet flies off-screen, remove it.
-        if bullet.bottom > self.width or bullet.top < 0 or bullet.right < 0 or bullet.left > self.width:
-            bullet.remove_from_sprite_lists()
 
 
 
@@ -78,8 +57,10 @@ class MyGame(arcade.Window):
         # Don't show the mouse cursor
         self.set_mouse_visible(False)
 
+    def on_update(self, delta_time):
+        self.bullet_list.update()
 
-
+        # Loop through each bullet
 
 
     def setup(self):
@@ -118,10 +99,56 @@ class MyGame(arcade.Window):
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
 
+    def on_mouse_press(self, x, y, button, modifiers):
+        """
+        Called whenever the mouse button is clicked.
+        """
+        # Gunshot sound
+
+        # Create a bullet
+        bullet = arcade.Sprite("laser_sprite.png", SPRITE_SCALING_BULLET)
+
+        # The image points to the right, and we want it to point up. So
+        # rotate it.
+        bullet.angle = 0
+
+        # Give the bullet a speed
+        bullet.change_x = BULLET_SPEED
+
+        # Position the bullet
+        bullet.center_x = self.player_sprite.center_x
+        bullet.bottom = self.player_sprite.top
+
+        # Add the bullet to the appropriate lists
+        self.bullet_list.append(bullet)
+
+    def on_update(self, delta_time):
+        """ Movement and game logic """
+
+        # Call update on bullet sprites
+        self.bullet_list.update()
+
+        # Loop through each bullet
+        for bullet in self.bullet_list:
+
+            # Check this bullet to see if it hit a coin
+            hit_list = arcade.check_for_collision_with_list(bullet, self.asteroid_list)
+
+            # If it did, get rid of the bullet
+            if len(hit_list) > 0:
+                bullet.remove_from_sprite_lists(),
+
+            # For every coin we hit, add to the score and remove the coin
+            for coin in hit_list:
+                coin.remove_from_sprite_lists()
+                self.score += 1
+
+                # Hit Sound
 
 
-
-
+            # If the bullet flies off-screen, remove it.
+            if bullet.bottom > SCREEN_HEIGHT:
+                bullet.remove_from_sprite_lists()
 
     def on_mouse_motion(self, x, y, dx, dy):
         """ Handle Mouse Motion """
