@@ -123,7 +123,7 @@ class GameView(arcade.View):
         # Don't show the mouse cursor
         self.window.set_mouse_visible(False)
         # background shenanigans
-        self.background = arcade.load_texture("space.jfif")
+        self.background = arcade.load_texture("space.jpg")
 
 
     def on_update(self, delta_time):
