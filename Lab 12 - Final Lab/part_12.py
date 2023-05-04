@@ -233,8 +233,8 @@ class GameView(arcade.View):
                 bullet.remove_from_sprite_lists(),
 
             # For every coin we hit, add to the score and remove the coin
-            for coin in hit_list:
-                coin.remove_from_sprite_lists()
+            for asteroid in hit_list:
+                asteroid.remove_from_sprite_lists()
                 self.score += 1
 
                 # Hit Sound
