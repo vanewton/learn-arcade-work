@@ -232,7 +232,7 @@ class GameView(arcade.View):
             if len(hit_list) > 0:
                 bullet.remove_from_sprite_lists(),
 
-            # For every coin we hit, add to the score and remove the coin
+            # For every asteroid we hit, add to the score and remove the asteroid
             for asteroid in hit_list:
                 asteroid.remove_from_sprite_lists()
                 self.score += 1
@@ -240,7 +240,7 @@ class GameView(arcade.View):
                 # Hit Sound
 
             # If the bullet flies off-screen, remove it.
-            if bullet.bottom > SCREEN_HEIGHT:
+            if bullet.center_x > SCREEN_WIDTH:
                 bullet.remove_from_sprite_lists()
 
     def on_mouse_motion(self, x, y, dx, dy):
