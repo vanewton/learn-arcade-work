@@ -91,6 +91,7 @@ class GameOverView(arcade.View):
         self.texture.draw_sized(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                                 SCREEN_WIDTH, SCREEN_HEIGHT)
 
+
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """ If the user presses the mouse button, re-start the game. """
         game_view = GameView()
