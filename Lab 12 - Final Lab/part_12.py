@@ -14,6 +14,8 @@ ASTEROID_COUNT = 10
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Chao in Space"
+UPPER_LIMIT = 500
+LOWER_LIMIT = 100
 
 
 class Asteroid(arcade.Sprite):
@@ -27,11 +29,25 @@ class Enemy(arcade.Sprite):
     # add the location of the enemy
     def __init__(self, fname, scale):
         super().__init__(fname, scale)
+        self.up = True
+        self.speed = 1
+        self.increment = 0
+        self.xincrement = 5
 
 
-def update(self):
-    self.center_x += 1
-    self.center_y += 1
+    def update(self):
+        if self.center_y < UPPER_LIMIT and self.up:
+            self.center_y += self.speed
+        elif self.center_y > LOWER_LIMIT and not self.up:
+            self.center_y -= self.speed
+        else:
+            self.up = not self.up
+            self.speed = random.randrange(1,5)
+
+            self.increment += 1
+            if (self.increment % 30) == 0:
+                self.xincrement = -self.xincrement
+            self.center_x += self.increment
 
 
 # class Bullet(arcade.Sprite):
