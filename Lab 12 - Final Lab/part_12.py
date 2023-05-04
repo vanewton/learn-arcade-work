@@ -173,7 +173,7 @@ class GameView(arcade.View):
 
         # make an enemy
         enemy = Enemy("dark_chao_sprite.png", 1.2)
-        enemy.center_x = SCREEN_WIDTH / 2
+        enemy.center_x = SCREEN_WIDTH / 2 + 200
         enemy.center_y = SCREEN_HEIGHT / 2
         self.enemy_list.append(enemy)
 
