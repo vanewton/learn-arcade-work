@@ -156,7 +156,7 @@ class GameView(arcade.View):
             self.asteroid_list.append(asteroid)
 
         # make an enemy
-        enemy = Enemy("dark_chao_sprite.png", 0.5)
+        enemy = Enemy("dark_chao_sprite.png", 1.2)
         enemy.center_x = SCREEN_WIDTH / 2
         enemy.center_y = SCREEN_HEIGHT / 2
         self.enemy_list.append(enemy)
