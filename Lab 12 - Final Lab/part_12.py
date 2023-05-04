@@ -1,10 +1,8 @@
 """ Sprite Sample Program """
 # Credits: Sound Effect from
-# <a href="https://pixabay.com/sound-effects/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=43831">Pixabay</a>
+# <a href=https://pixabay.com/sound-effects/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=music&amp;utm_content=43831>Pixabay</a>
 import random
 import arcade
-
-
 
 # --- Constants ---
 SPRITE_SCALING_PLAYER = 1
@@ -18,35 +16,36 @@ SCREEN_HEIGHT = 600
 SCREEN_TITLE = "Chao in Space"
 
 
-
 class Asteroid(arcade.Sprite):
-
     def update(self):
         self.center_x -= 1
         if self.center_x < 0:
             self.center_x = SCREEN_WIDTH
 
+
 class Enemy(arcade.Sprite):
     # add the location of the enemy
+    def __init__(self, fname, scale):
+        super().__init__(fname, scale)
 
-    def update(self):
-        self.enemy_sprite = arcade.Sprite("dark_chao_sprite.png", SPRITE_SCALING_ENEMY)
-        self.enemy_sprite.center_x = self.player_sprite.center_x
-        self.enemy_sprite.center_y = self.player_sprite.center_y
-        self.enemy_list.append(self.enemy_sprite)
-class Bullet(arcade.Sprite):
-    # Call update on all sprites
-    def on_mouse_press(self):
-        bullet = arcade.Sprite("bullet_sprite.png", SPRITE_SCALING_BULLET)
-        # location of the bullets where the player is
-        self.player_sprite = arcade.Sprite("chao_sprite.png", SPRITE_SCALING_PLAYER)
-        self.player_sprite.center_x = 50
-        self.player_sprite.center_y = 50
-        arcade.play_sound = ("laser_sound.mp3", SPRITE_SCALING_BULLET)
-        self.player_list.append(self.player_sprite)
+
+def update(self):
+    self.center_x += 1
+    self.center_y += 1
+
+
+# class Bullet(arcade.Sprite):
+# Call update on all sprites
+
 
 class InstructionView(arcade.View):
     """ View to show instructions """
+
+    def __init__(self):
+        """ This is run once when we switch to this view """
+        super().__init__()
+        self.title = arcade.load_texture("title.jpg")
+        arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
 
     def on_show_view(self):
         """ This is run once when we switch to this view """
@@ -59,12 +58,9 @@ class InstructionView(arcade.View):
     def on_draw(self):
         """ Draw this view """
         self.clear()
-
-        def __init__(self):
-            """ This is run once when we switch to this view """
-            super().__init__()
-            self.texture = arcade.load_texture("title.jpg")
-            arcade.set_viewport(0, SCREEN_WIDTH - 1, 0, SCREEN_HEIGHT - 1)
+        arcade.draw_lrwh_rectangle_textured(0, 0,
+                                            SCREEN_WIDTH, SCREEN_HEIGHT,
+                                            self.title)
 
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """ If the user presses the mouse button, start the game. """
@@ -91,15 +87,11 @@ class GameOverView(arcade.View):
         self.texture.draw_sized(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2,
                                 SCREEN_WIDTH, SCREEN_HEIGHT)
 
-
     def on_mouse_press(self, _x, _y, _button, _modifiers):
         """ If the user presses the mouse button, re-start the game. """
         game_view = GameView()
         game_view.setup()
         self.window.show_view(game_view)
-
-
-
 
 
 class GameView(arcade.View):
@@ -109,7 +101,7 @@ class GameView(arcade.View):
         """ Initializer """
         # Call the parent class initializer
         super().__init__()
-
+        self.laser_sound = arcade.load_sound("laser_sound.mp3", False)
 
         # Variables that will hold sprite lists
         self.player_list = None
@@ -120,22 +112,28 @@ class GameView(arcade.View):
         # Set up the player info
         self.player_sprite = None
         self.score = 0
-
+        self.background = None
         # Don't show the mouse cursor
         self.window.set_mouse_visible(False)
         # background shenanigans
-        self.background = arcade.load_texture("space.jpg")
-
 
     def on_update(self, delta_time):
         self.bullet_list.update()
 
         # Loop through each bullet
 
+    def on_mouse_press(self):
+        bullet = arcade.Sprite("bullet_sprite.png", SPRITE_SCALING_BULLET)
+        # location of the bullets where the player is
+        self.player_sprite = arcade.Sprite("chao_sprite.png", SPRITE_SCALING_PLAYER)
+        self.player_sprite.center_x = 50
+        self.player_sprite.center_y = 50
+        arcade.play_sound = (self.laser_sound)
+        self.player_list.append(self.player_sprite)
 
     def setup(self):
         """ Set up the game and initialize the variables. """
-        self.background = arcade.load_texture("space.jfif")
+        self.background = arcade.load_texture("space.jpg")
         # Sprite lists
         self.player_list = arcade.SpriteList()
         self.asteroid_list = arcade.SpriteList()
@@ -150,36 +148,39 @@ class GameView(arcade.View):
         self.player_sprite.center_y = 50
         self.player_list.append(self.player_sprite)
 
-
         # Placing the asteroids
         for i in range(ASTEROID_COUNT):
-
             asteroid = Asteroid("asteroid_sprite.png", SPRITE_SCALING_ASTEROID)
             asteroid.center_x = random.randrange(SCREEN_WIDTH)
             asteroid.center_y = random.randrange(SCREEN_HEIGHT)
             self.asteroid_list.append(asteroid)
 
-
+        # make an enemy
+        enemy = Enemy("dark_chao_sprite.png", 0.5)
+        enemy.center_x = SCREEN_WIDTH / 2
+        enemy.center_y = SCREEN_HEIGHT / 2
+        self.enemy_list.append(enemy)
 
     def on_draw(self):
         """ Draw everything """
         arcade.start_render()
+        arcade.draw_lrwh_rectangle_textured(0, 0,
+                                            SCREEN_WIDTH, SCREEN_HEIGHT,
+                                            self.background)
         self.player_list.draw()
         self.asteroid_list.draw()
         self.bullet_list.draw()
         self.enemy_list.draw()
-
-
         output = f"Score: {self.score}"
         arcade.draw_text(output, 10, 20, arcade.color.WHITE, 14)
-
-
+        # Draw the background texture
 
     def on_mouse_press(self, x, y, button, modifiers):
         """
         Called whenever the mouse button is clicked.
         """
         # Gunshot sound
+        arcade.play_sound(self.laser_sound)
 
         # Create a bullet
         bullet = arcade.Sprite("laser_sprite.png", SPRITE_SCALING_BULLET)
@@ -222,7 +223,6 @@ class GameView(arcade.View):
 
                 # Hit Sound
 
-
             # If the bullet flies off-screen, remove it.
             if bullet.bottom > SCREEN_HEIGHT:
                 bullet.remove_from_sprite_lists()
@@ -233,8 +233,8 @@ class GameView(arcade.View):
         # Move the center of the player sprite to match the mouse x, y
         self.player_sprite.center_x = x
         self.player_sprite.center_y = y
-# bullet motions
 
+    # bullet motions
 
     def update(self, delta_time):
         """ Movement and game logic """
@@ -254,13 +254,13 @@ class GameView(arcade.View):
             self.score -= 1
 
 
-
 def main():
     """ Main method """
     window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_TITLE)
-    start_view = GameView()
-    window.show_view(start_view)
-    start_view.setup()
+    window.show_view(InstructionView())
+    # start_view = GameView()
+    # window.show_view(start_view)
+    # start_view.setup()
     arcade.run()
 
 
