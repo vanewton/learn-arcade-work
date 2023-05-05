@@ -12,7 +12,7 @@ def read_in_file(file_name):
     my_file = open(file_name)
 
     # Create an empty list to store our names
-    name_list = []
+    dictionary_list = []
 
     # Loop through each line in the file like a list
     for line in my_file:
@@ -20,11 +20,11 @@ def read_in_file(file_name):
         line = line.strip()
 
         # Add the name to the list
-        name_list.append(line)
+        dictionary_list.append(line)
 
     my_file.close()
 
-    return name_list
+    return dictionary_list
 
 
 def linear_search(key, name_list):
@@ -32,6 +32,7 @@ def linear_search(key, name_list):
 
     # Start at the beginning of the list
     current_list_position = 0
+
 
     # Loop until you reach the end of the list, or the value at the
     # current position is equal to the key
@@ -50,9 +51,9 @@ def main():
     list_position = linear_search(key, name_list)
 
     if list_position < len(name_list):
-        print("The name", key, "is at position", list_position)
+        print(line, list_position)
     else:
-        print("The name", key, "was not in the list.")
+        print(line, list_position)
 
 
 main()
