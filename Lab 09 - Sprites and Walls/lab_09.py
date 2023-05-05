@@ -8,7 +8,7 @@ SPRITE_SCALING = 0.5
 
 DEFAULT_SCREEN_WIDTH = 800
 DEFAULT_SCREEN_HEIGHT = 600
-SCREEN_TITLE = "Sprite Move with Scrolling Screen Example"
+SCREEN_TITLE = "Scrolling Sonic Game"
 
 # How many pixels to keep as a minimum margin between the character
 # and the edge of the screen.
