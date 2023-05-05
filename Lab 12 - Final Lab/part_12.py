@@ -237,9 +237,11 @@ class GameView(arcade.View):
             if bullet.center_x > SCREEN_WIDTH:
                 bullet.remove_from_sprite_lists()
 
-            if self.score >= 0:
+            if self.score <= -5:
                 view = GameOverView()
                 self.window.show_view(view)
+
+
     def on_mouse_motion(self, x, y, dx, dy):
         """ Handle Mouse Motion """
 
