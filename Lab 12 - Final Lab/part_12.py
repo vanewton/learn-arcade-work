@@ -131,12 +131,6 @@ class GameView(arcade.View):
         self.background = None
         # Don't show the mouse cursor
         self.window.set_mouse_visible(False)
-        # background shenanigans
-
-    def on_update(self, delta_time):
-        self.bullet_list.update()
-
-        # Loop through each bullet
 
     def on_mouse_press(self):
         bullet = arcade.Sprite("bullet_sprite.png", SPRITE_SCALING_BULLET)
